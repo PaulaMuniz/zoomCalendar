@@ -1,4 +1,4 @@
-//import { AuthenticationService } from './../../services/authentication.service';
+import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, LoadingController } from '@ionic/angular';
@@ -14,7 +14,7 @@ export class LoginPage implements OnInit {
  
   constructor(
     private fb: FormBuilder,
-   // private authService: AuthenticationService,
+    private authService: AuthenticationService,
     private alertController: AlertController,
     private router: Router,
     private loadingController: LoadingController
@@ -22,32 +22,31 @@ export class LoginPage implements OnInit {
  
   ngOnInit() {
     this.credentials = this.fb.group({
-      email: ['paula.muniz@prumoengenharia.com.br', [Validators.required, Validators.email]],
-      password: ['testando', [Validators.required, Validators.minLength(6)]],
+      email: ['eve.holt@reqres.in', [Validators.required, Validators.email]],
+      password: ['cityslicka', [Validators.required, Validators.minLength(6)]],
     });
   }
  
   async login() {
     const loading = await this.loadingController.create();
     await loading.present();
-    await loading.dismiss();  
-    this.router.navigateByUrl('/calendario', { replaceUrl: true })
-   //this.authService.login(this.credentials.value).subscribe(
-     // async (res) => {
-       // await loading.dismiss();        
-       // this.router.navigateByUrl('/tabs', { replaceUrl: true });
-     // },
-      //async (res) => {
-        //await loading.dismiss();
-       // const alert = await this.alertController.create({
-         // header: 'Login failed',
-         // message: res.error.error,
-        //  buttons: ['OK'],
-       // });
+    
+    this.authService.login(this.credentials.value).subscribe(
+      async (res) => {
+        await loading.dismiss();        
+        this.router.navigateByUrl('/calendario', { replaceUrl: true });
+      },
+      async (res) => {
+        await loading.dismiss();
+        const alert = await this.alertController.create({
+          header: 'Login failed',
+          message: res.error.error,
+          buttons: ['OK'],
+        });
  
-       // await alert.present();
-     // }
-    //);
+        await alert.present();
+      }
+    );
   }
  
   // Easy access for form fields

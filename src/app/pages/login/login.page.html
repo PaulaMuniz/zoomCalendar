@@ -12,21 +12,20 @@
         <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
       </ion-item>
       <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
-        <span *ngIf="email.errors?.required">Email é um campo obrigatório!</span>
+        <span *ngIf="email.errors?.required">O campo de Email é obrigatório!</span>
         <span *ngIf="email.errors?.email">Email inválido!</span>
       </div>
       <ion-item>
-        <ion-input type="password" placeholder="Senha" formControlName="password"></ion-input>
+        <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
       </ion-item>
       <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
-        <span *ngIf="password.errors?.required">Senha é um campo obrigatório</span>
+        <span *ngIf="password.errors?.required">O campo de senha é obrigatório!</span>
         <span *ngIf="password.errors?.minlength">Senha inválida</span>
       </div>
     </div>
  
-    <ion-button type="submit" expand="block" [disabled]="!credentials.valid">Entre!</ion-button>
-    <ion-button type="button" expand="block" color="light" fill="clear">BOTÃO DE RESERVA
+    <ion-button type="submit" expand="block" [disabled]="!credentials.valid">Entrar</ion-button>
+    <ion-button type="button" expand="block" color="light" fill="clear">Botão Reserva!
     </ion-button>
- 
   </form>
 </ion-content>

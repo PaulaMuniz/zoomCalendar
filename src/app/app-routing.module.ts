@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { IntroGuard } from './guards/intro.guard';
 import { AutoLoginGuard } from './guards/auto-login.guard';
+import { AuthGuard } from './guards/auth.guard';
+ 
 
 const routes: Routes = [
   {
@@ -21,7 +23,8 @@ const routes: Routes = [
   },
   {
     path: 'calendario',
-    loadChildren: () => import('./pages/calendario/calendario.module').then( m => m.CalendarioPageModule)
+    loadChildren: () => import('./pages/calendario/calendario.module').then( m => m.CalendarioPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'cal-modal',

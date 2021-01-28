@@ -15,7 +15,6 @@ export class CalModalPage implements AfterViewInit {
   
   event = {
     title: '',
-    desc: '',
     startTime: null,
     endTime: '',
     allDay: true

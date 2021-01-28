@@ -2,15 +2,14 @@ import { CalendarComponent } from 'ionic2-calendar';
 import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
-import { CalModalPage } from '../cal-modal/cal-modal.page';
-import { AuthenticationService } from './../../services/authentication.service';
-import { Router } from '@angular/router';
+import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
+ 
 @Component({
-  selector: 'app-calendario',
-  templateUrl: 'calendario.page.html',
-  styleUrls: ['calendario.page.scss'],
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
 })
-export class CalendarioPage implements OnInit {
+export class HomePage implements OnInit {
   eventSource = [];
   viewTitle: string;
  
@@ -26,9 +25,7 @@ export class CalendarioPage implements OnInit {
   constructor(
     private alertCtrl: AlertController,
     @Inject(LOCALE_ID) private locale: string,
-    private modalCtrl: ModalController,
-    private authService: AuthenticationService, 
-    private router: Router
+    private modalCtrl: ModalController
   ) {}
  
   ngOnInit() {}
@@ -56,15 +53,10 @@ export class CalendarioPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: event.title,
       subHeader: event.desc,
-      message: 'De: ' + start + '<br><br>Até: ' + end,
+      message: 'From: ' + start + '<br><br>To: ' + end,
       buttons: ['OK'],
     });
     alert.present();
-  }
-
-  async logout() {
-    await this.authService.logout();
-    this.router.navigateByUrl('/', { replaceUrl: true });
   }
  
   createRandomEvents() {
@@ -118,7 +110,7 @@ export class CalendarioPage implements OnInit {
           date.getMinutes() + endMinute
         );
         events.push({
-          title: 'Reunião - ' + i,
+          title: 'Event - ' + i,
           startTime: startTime,
           endTime: endTime,
           allDay: false,
