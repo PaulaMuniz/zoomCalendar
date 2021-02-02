@@ -28,18 +28,64 @@ export class CalendarioPage implements OnInit {
     @Inject(LOCALE_ID) private locale: string,
     private modalCtrl: ModalController,
     private authService: AuthenticationService, 
-    private router: Router
-  ) {}
- 
+    private locais: Array<Object> = [],
+    private router: Router,
+    
+  ) 
+  { 
+    this.locais =[
+      {
+          "cod_local": "001",
+          "nome_local": "TI ZOOM",
+          "desc_local": "Sala de reunião virtual via Zoom Meetings"
+      },
+
+      {
+          "cod_local": "002",
+          "nome_local": "COMERCIAL ZOOM",
+          "desc_local": "Sala de reunião virtual via Zoom Meetings"
+      },
+
+      {
+          "cod_local": "003",
+          "nome_local": "PRUMO ZOOM",
+          "desc_local": "Sala de reunião virtual via Zoom Meetings"
+      },
+
+      {
+        "cod_local": "004",
+        "nome_local": "SALA DE REUNIÃO 1",
+        "desc_local": "Sala de reunião física, próxima ao auditório"
+      },
+
+      {
+        "cod_local": "005",
+        "nome_local": "SALA DE REUNIÃO 2",
+        "desc_local": "Sala de reunião física, próxima ao financeiro"
+      },
+    ]
+  
+  }
+  
+    
+
   ngOnInit() {}
  
   // Change current month/week/day
   next() {
     this.myCal.slideNext();
   }
- 
+  
   back() {
     this.myCal.slidePrev();
+  }
+
+  nextLocal(){
+    
+  }
+
+  prevLocal(){
+
   }
  
   // Selected date reange and hence title changed

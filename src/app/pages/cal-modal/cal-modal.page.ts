@@ -17,6 +17,7 @@ export class CalModalPage implements AfterViewInit {
     title: '',
     startTime: null,
     endTime: '',
+    room:'',
     allDay: true
   };
  
@@ -28,7 +29,7 @@ export class CalModalPage implements AfterViewInit {
     setTimeout(() => {
       this.modalReady = true;      
     }, 0);
-  }
+ }
  
   save() {    
     this.modalCtrl.dismiss({event: this.event})
