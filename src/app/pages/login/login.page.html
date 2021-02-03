@@ -6,26 +6,38 @@
  
 <ion-content>
  
-  <form (ngSubmit)="login()" [formGroup]="credentials">
+  <form [formGroup]="ionicForm" (ngSubmit)="login()" novalidate>
     <div class="input-group">
-      <ion-item>
-        <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+      <ion-item style="margin: 0 15px">
+        <ion-label position="floating">Matrícula</ion-label>
+        <ion-input formControlName="email" type="email" name="email" required="true"></ion-input>
+    </ion-item>
+      <!-- Error messages -->
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.required">Campo obrigatório.</span>
+
+      <ion-item style="margin: 0 15px">
+          <ion-label position="floating">Senha</ion-label>
+          <ion-input formControlName="password" type="password" name="password" required="true"></ion-input>
       </ion-item>
-      <div *ngIf="(email.dirty || email.touched) && email.errors" class="errors">
-        <span *ngIf="email.errors?.required">O campo de Email é obrigatório!</span>
-        <span *ngIf="email.errors?.email">Email inválido!</span>
-      </div>
-      <ion-item>
-        <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+      <!-- Error messages -->
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">Campo obrigatório.</span>
+
+      <ion-item style="margin: 0 15px 56px">
+          <ion-label>Empresa</ion-label>
+          <ion-select formControlName="company_id">
+              <ion-select-option *ngFor="let item of companies" value={{item.id}}>{{item.description}}</ion-select-option>
+          </ion-select>
       </ion-item>
-      <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
-        <span *ngIf="password.errors?.required">O campo de senha é obrigatório!</span>
-        <span *ngIf="password.errors?.minlength">Senha inválida</span>
-      </div>
+      <!-- Error messages -->
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.company_id.errors?.required">Campo obrigatório.</span>
     </div>
- 
-    <ion-button type="submit" expand="block" [disabled]="!credentials.valid">Entrar</ion-button>
-    <ion-button type="button" expand="block" color="light" fill="clear">Botão Reserva!
-    </ion-button>
+  
+    <ion-toolbar class="footer">
+        <ion-row>
+            <ion-col>
+                <ion-button type="submit" expand="block" color="primary">Login</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
   </form>
 </ion-content>

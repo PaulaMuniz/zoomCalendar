@@ -1,8 +1,8 @@
-import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController, LoadingController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { LoadingController, NavController } from '@ionic/angular';
+import { AlertService } from 'src/app/services/alert/alert.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
  
 @Component({
   selector: 'app-login',
@@ -10,51 +10,62 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  credentials: FormGroup;
+
+  companies: any;
+  ionicForm: FormGroup;
+  isSubmitted = false;
  
   constructor(
-    private fb: FormBuilder,
-    private authService: AuthenticationService,
-    private alertController: AlertController,
-    private router: Router,
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private alertService: AlertService,
+    private navCtrl: NavController,
     private loadingController: LoadingController
   ) {}
+
+  get errorControl() {
+    return this.ionicForm.controls;
+  }
  
   ngOnInit() {
-    this.credentials = this.fb.group({
-      email: ['eve.holt@reqres.in', [Validators.required, Validators.email]],
-      password: ['cityslicka', [Validators.required, Validators.minLength(6)]],
+    this.ionicForm = this.formBuilder.group({
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      company_id: ['', [Validators.required]],
+    });
+    this.authService.getCompanies().then(data => {
+        this.companies = data;
     });
   }
  
-  async login() {
-    const loading = await this.loadingController.create();
-    await loading.present();
-    
-    this.authService.login(this.credentials.value).subscribe(
-      async (res) => {
-        await loading.dismiss();        
-        this.router.navigateByUrl('/calendario', { replaceUrl: true });
-      },
-      async (res) => {
-        await loading.dismiss();
-        const alert = await this.alertController.create({
-          header: 'Login failed',
-          message: res.error.error,
-          buttons: ['OK'],
+  login() {
+    this.authService.testConnectionAPI()
+        .then(async (c) => {
+            this.isSubmitted = true;
+            if (!this.ionicForm.valid) {
+                return false;
+            }
+            const loading = await this.loadingController.create({
+                message: 'Por favor, aguarde...'
+            });
+            this.authService.login(this.ionicForm.value).subscribe(
+                async data => {
+                    loading.present();
+                    this.alertService.presentToast('Usuario Autenticado');
+                    loading.dismiss();
+                    this.navCtrl.navigateRoot('/calendario');
+                },
+                error => {
+                    loading.dismiss();
+                    this.alertService.presentToast(error.error.message);
+                    console.error(error);
+                },
+                () => {}
+            );
+        })
+        .catch((error) => {
+            this.alertService.presentToast('Falha na conexão com a internet');
+            console.log('error connection ', error);
         });
- 
-        await alert.present();
-      }
-    );
-  }
- 
-  // Easy access for form fields
-  get email() {
-    return this.credentials.get('email');
-  }
-  
-  get password() {
-    return this.credentials.get('password');
   }
 }
