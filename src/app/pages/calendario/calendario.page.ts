@@ -22,18 +22,17 @@ export class CalendarioPage implements OnInit {
   selectedDate: Date;
  
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
- 
+  private room: Array<Object> = [];
   constructor(
     private alertCtrl: AlertController,
     @Inject(LOCALE_ID) private locale: string,
     private modalCtrl: ModalController,
     private authService: AuthenticationService, 
-    private locais: Array<Object> = [],
     private router: Router,
     
   ) 
   { 
-    this.locais =[
+    this.room =[
       {
           "cod_local": "001",
           "nome_local": "TI ZOOM",

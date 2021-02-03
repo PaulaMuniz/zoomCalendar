@@ -175,6 +175,9 @@
       }
     }
   },
+  "styles": [
+    "node_modules/bootstrap/dist/css/bootstrap.min.css"
+  ],
   "cli": {
     "defaultCollection": "@ionic/angular-toolkit",
     "analytics": false

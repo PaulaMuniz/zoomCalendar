@@ -27,6 +27,11 @@
     <ion-datetime displayFormat="HH:mm" placeholder="00:00hs" [(ngModel)]="event.endHour"></ion-datetime>
   </ion-item>
 
+  <ion-item>
+    <ion-label position="stacked">Sala</ion-label>
+    <ion-datetime displayFormat="HH:mm" placeholder="00:00hs" [(ngModel)]="event.endHour"></ion-datetime>
+  </ion-item>
+
   <calendar
       *ngIf="modalReady"
       [calendarMode]="calendar.mode"

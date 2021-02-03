@@ -18,7 +18,7 @@ export class CalModalPage implements AfterViewInit {
     startTime: null,
     endTime: '',
     room:'',
-    allDay: true
+    allDay:false
   };
  
   modalReady = false;
@@ -42,6 +42,7 @@ export class CalModalPage implements AfterViewInit {
   onTimeSelected(ev) {    
     this.event.startTime = new Date(ev.selectedTime);
   }
+  
  
   close() {
     this.modalCtrl.dismiss();
