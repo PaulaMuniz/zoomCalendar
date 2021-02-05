@@ -3,7 +3,7 @@ import { IonSlides } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Plugins } from '@capacitor/core';
 const { Storage } = Plugins;
- 
+
 @Component({
   selector: 'app-intro',
   templateUrl: './intro.page.html',

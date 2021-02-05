@@ -3,7 +3,6 @@ import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import { CalModalPage } from '../cal-modal/cal-modal.page';
-import { AuthenticationService } from './../../services/authentication.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 @Component({
@@ -21,15 +20,15 @@ export class CalendarioPage implements OnInit {
   };
  
   selectedDate: Date;
- 
-  @ViewChild(CalendarComponent) myCal: CalendarComponent;
   private room: Array<Object> = [];
+
+
+  @ViewChild(CalendarComponent) myCal: CalendarComponent;
   constructor(
     private alertCtrl: AlertController,
     @Inject(LOCALE_ID) private locale: string,
     private modalCtrl: ModalController,
-    private authService: AuthenticationService, 
-    private locais: Array<Object> = [],
+    private authService: AuthService, 
     private router: Router,
     
   ) 

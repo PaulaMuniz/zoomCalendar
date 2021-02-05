@@ -5,6 +5,9 @@ import {EnvService} from '../env/env.service';
 import {Router} from '@angular/router';
 import {Md5} from 'ts-md5/dist/md5.js';
 import {NativeStorage} from '@ionic-native/native-storage/ngx';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+const TOKEN_KEY = 'my-token';
+
 
 @Injectable({
     providedIn: 'root'
@@ -21,14 +24,28 @@ export class AuthService {
             'Content-Type': 'application/json'
         })
     };
+    
+    isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
     constructor(
         private http: HttpClient,
         private storage: NativeStorage,
         private env: EnvService,
         private router: Router,
+        
     ) {
     }
+
+    async loadToken() {
+            
+        if (this.token && this.token.value) {
+          console.log('set token: ', this.token.value);
+          this.token = this.token.value;
+          this.isAuthenticated.next(true);
+        } else {
+          this.isAuthenticated.next(false);
+        }
+      }
 
     getCompanies() {
         return this.http
