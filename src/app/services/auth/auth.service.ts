@@ -14,7 +14,7 @@ const TOKEN_KEY = 'my-token';
 })
 export class AuthService {
 
-    isLoggedIn = false;
+    isLoggedIn = true;
     token: any;
     user: any;
     companies: any;

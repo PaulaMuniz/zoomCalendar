@@ -1,0 +1,28 @@
+{
+    "Salas": [
+        {
+            "name": "TI ZOOM",
+            "description": "Sala de reunião virtual via Zoom Meetings"
+        },
+  
+        {
+            "name": "COMERCIAL ZOOM",
+            "description": "Sala de reunião virtual via Zoom Meetings"
+        },
+  
+        {
+            "name": "PRUMO ZOOM",
+            "description": "Sala de reunião virtual via Zoom Meetings"
+        },
+  
+        {
+            "name": "SALA DE REUNIÃO 1",
+            "description": "Sala de reunião física, próxima ao auditório"
+        },
+  
+        {
+            "name": "SALA DE REUNIÃO 2",
+            "description": "Sala de reunião física, próxima ao financeiro"
+        }
+    ]
+}

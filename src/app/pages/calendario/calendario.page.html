@@ -55,6 +55,7 @@
  
   <ion-row>
     <!-- Move back one screen of the slides -->
+    
     <ion-col size="2">
       <ion-button fill="clear" (click)="back()">
         <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
@@ -79,6 +80,7 @@
     [currentDate]="calendar.currentDate"
     (onEventSelected)="onEventSelected($event)"
     (onTitleChanged)="onViewTitleChanged($event)"
+    (onRangeChanged)="reloadSource(startTime, endTime)"
     startHour="6"
     endHour="22"
     step="15"

@@ -19,19 +19,25 @@
   </ion-item>
   <ion-item>
     <ion-label position="stacked">Horário de início</ion-label>
-    <ion-datetime displayFormat="HH:mm" placeholder="00:00hs" [(ngModel)]="event.startHour"></ion-datetime>
+     
+        <ion-datetime displayFormat="H:mm a" minuteValues="0,15,30,45"   placeholder="00:00hrs" [(ngModel)]="event.startTime"></ion-datetime>
+    
   </ion-item>
 
   <ion-item>
     <ion-label position="stacked">Horário de Término</ion-label>
-    <ion-datetime displayFormat="HH:mm" placeholder="00:00hs" [(ngModel)]="event.endHour"></ion-datetime>
+     
+        <ion-datetime displayFormat="HH:mm" minuteValues="0,15,30,45" datetime="HH:mm" placeholder="00:00hrs"  [(ngModel)]="event.endTime"></ion-datetime>
+         
   </ion-item>
 
-  <ion-item>
-    <ion-label position="stacked">Sala</ion-label>
-    <ion-datetime displayFormat="HH:mm" placeholder="00:00hs" [(ngModel)]="event.endHour"></ion-datetime>
+  <ion-item >
+    <ion-label>Sala</ion-label>
+      <ion-select [(ngModel)]="event.room">
+        <ion-select-option *ngFor="let room of rooms" value={{room.cod}}>{{room.desc}}</ion-select-option>
+      </ion-select>
   </ion-item>
-
+  <ion-label>Você selecionou {{event.room}}</ion-label>
   <ion-row>
     <!-- Move back one screen of the slides -->
     <ion-col size="2">
@@ -57,10 +63,6 @@
     [currentDate]="calendar.currentDate"
     (onEventSelected)="onEventSelected($event)"
     (onTitleChanged)="onViewTitleChanged($event)"
-    startHour="6"
-    endHour="22"
-    step="15"
-    startingDayWeek="1"
     [monthviewDisplayEventTemplate]="template"
   >
   </calendar>

@@ -9,3 +9,13 @@ ion-slides {
     --bullet-background-active: #fff;
     --bullet-background: #000;
 }
+
+/* For mobile phones: */
+[class*="imgintro"] {
+    width: 100%;
+  }
+  
+  @media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .imgintro{width: 58.33%;}
+  }

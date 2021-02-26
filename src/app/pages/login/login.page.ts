@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, NavController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { RoomService } from 'src/app/services/room/room.service';
  
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private alertService: AlertService,
     private navCtrl: NavController,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private roomService: RoomService
   ) {}
 
   get errorControl() {
@@ -53,6 +55,10 @@ export class LoginPage implements OnInit {
                     loading.present();
                     this.alertService.presentToast('Usuario Autenticado');
                     loading.dismiss();
+
+                    //baixando salas de reunião
+                    this.roomService.saveRoomsBd();
+
                     this.navCtrl.navigateRoot('/calendario');
                 },
                 error => {

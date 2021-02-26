@@ -12,6 +12,13 @@ import {NativeStorage} from '@ionic-native/native-storage/ngx';
  
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from 'src/environments/environment';
+import { SQLite } from '@ionic-native/sqlite/ngx';
+
  
 @NgModule({
   declarations: [AppComponent],
@@ -22,10 +29,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [
     StatusBar,
+    SQLite,
     SplashScreen,
     NativeStorage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

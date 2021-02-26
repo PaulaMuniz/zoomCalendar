@@ -5,6 +5,10 @@ import { formatDate } from '@angular/common';
 import { CalModalPage } from '../cal-modal/cal-modal.page';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { IonSlides } from '@ionic/angular';
+
+
+
 @Component({
   selector: 'app-calendario',
   templateUrl: 'calendario.page.html',
@@ -24,6 +28,8 @@ export class CalendarioPage implements OnInit {
 
 
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
+  @ViewChild(IonSlides) productSlider: IonSlides;
+
   constructor(
     private alertCtrl: AlertController,
     @Inject(LOCALE_ID) private locale: string,
@@ -171,6 +177,7 @@ export class CalendarioPage implements OnInit {
         });
       }
     }
+    //vários eventos simultâneos aleatórios
     this.eventSource = events;
   }
  
@@ -183,30 +190,32 @@ export class CalendarioPage implements OnInit {
       component: CalModalPage,
       cssClass: 'cal-modal',
       backdropDismiss: false
+      
     });
    
     await modal.present();
    
     modal.onDidDismiss().then((result) => {
-      if (result.data && result.data.event) {
+       if (result.data && result.data.event) {
         let event = result.data.event;
-        if (event.allDay) {
-          let start = event.startTime;
+        //se o evento for o dia todo, então ele pega as informações do dia
+         if (event.allDay) {
+         let start = event.startTime;
           event.startTime = new Date(
             Date.UTC(
-              start.getUTCFullYear(),
+              //start.getUTCFullYear(),
               start.getUTCMonth(),
               start.getUTCDate()
             )
           );
           event.endTime = new Date(
             Date.UTC(
-              start.getUTCFullYear(),
+              //start.getUTCFullYear(),
               start.getUTCMonth(),
               start.getUTCDate() + 1
             )
           );
-        }
+        } 
         this.eventSource.push(result.data.event);
         this.myCal.loadEvents();
       }
